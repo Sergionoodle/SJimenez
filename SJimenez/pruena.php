@@ -25,4 +25,33 @@ for ($i = 1; $i < $divisor; $i++) {
     }
 }
 echo "<br>";
+
+echo "numeros primos <br>";
+
+$minimo = 1;
+$maximo = 14;
+for ($i = $minimo; $i <= $maximo; $i++){
+   if( getPrimo($i)){
+
+   }else{
+       echo "- ". $i."<br>";
+   }
+}
+
+function getPrimo($numerito){
+
+    $contador = 0;
+
+    for($i = 1; $i < $numerito; $i++) {
+        if ($numerito % $i == 0) {
+            $contador = $contador +1;
+        }
+    }
+    if($contador == 2){
+        return true;// si es primo
+    }else{
+        return false; //no es primo
+    }
+}
+
 ?>

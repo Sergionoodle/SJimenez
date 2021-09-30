@@ -15,15 +15,29 @@
     function getDivisors($num){
         //TODO: YOUR CODE HERE
 
+
     }
 
     function isPrimeNum($num){
         //TODO: YOUR CODE HERE
+        $contador = 0 ;
+        for($i = 1; $i < $num; $i++){
+            if($num % $i == 0){
+                $contador = $contador +1;
+            }
+        }
+        if($contador == 2){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     if (isset($_POST["num"])) {
         $num = intval($_POST["num"]);
         //TODO: YOUR CODE HERE
+
     }
     ?>
 </div>
