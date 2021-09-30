@@ -10,7 +10,7 @@ echo "<br>";
 $numeroUno = 5;
 $numeroDos = 6;
 
-if ($numeroUno < $numeroDos){
+if ($numeroUno < $numeroDos) {
     echo "<br> El numero mayor es el numero $numeroDos";
 }
 
@@ -19,9 +19,9 @@ echo "<br>";
 
 $divisor = 10;
 
-for($i = 1; $i < $divisor; $i ++) {
+for ($i = 1; $i < $divisor; $i++) {
     if ($divisor % $i == 0) {
-        echo "<br>".$i;
+        echo "<br>" . $i;
     }
 }
 ?>
