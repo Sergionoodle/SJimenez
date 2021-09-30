@@ -4,7 +4,7 @@
     <title>Piramide</title>
 </head>
 <body>
-<form action="/piramide.php" method="POST">
+<form action="piramide.php" method="POST">
     <table>
         <tr>
             <td>
@@ -14,7 +14,7 @@
         <tr>
             <td>Digito numerico</td>
             <td>
-                <input type="number" name="numero" required>
+                <input type="number" name="num" required>
             </td>
         </tr>
         <tr>

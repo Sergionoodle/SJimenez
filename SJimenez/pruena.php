@@ -24,4 +24,5 @@ for ($i = 1; $i < $divisor; $i++) {
         echo "<br>" . $i;
     }
 }
+echo "<br>";
 ?>
