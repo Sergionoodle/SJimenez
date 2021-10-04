@@ -19,9 +19,10 @@
         $num = intval($_POST["num"]);
         //TODO: YOUR CODE HERE
 
-        for ($i = 1; $i < $num; $i++){
+        for ($i = 1; $i < $num; $i++){ // si $i es menor que el numero se ejecuta y asi se suma y 1+1...
+            //si num entre i el resto es 0 lo imprimimos
             if($num % $i == 0){
-                echo "<br>Divisor: ".$i;
+                echo "<br>Divisor: ".$i;// asi imprimimos los divisores
             }
         }
 
