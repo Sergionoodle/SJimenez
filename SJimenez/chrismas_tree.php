@@ -22,7 +22,7 @@
         }
 
         for ($x = 0; $x < $i *2 - 1 ; $x++){
-            echo "*";//este es el bucle que usamos para ir añadiendo *, donde la i la multiplicamos por dos y le quitamos uno para que de la punta y vaya equitativamente
+            echo "<span style='color: darkolivegreen'>*</span>";//este es el bucle que usamos para ir añadiendo *, donde la i la multiplicamos por dos y le quitamos uno para que de la punta y vaya equitativamente
 
         }
         for($z = 0; $z <= $num - $i;$z++){
