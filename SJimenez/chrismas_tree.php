@@ -1,4 +1,4 @@
-<html xml:lang="es">
+<html lang="es">
 <head>
     <title>Arbol de Navidad</title>
 </head>
@@ -11,21 +11,21 @@
     <input type="submit">
 </form>
 
-<div>
+<div style="background-color: skyblue; display: inline-block;">
     <?php
     $num = $_POST["num"];
 
     for ($i = 0; $i <= $num; $i++){
 
         for($y = 0; $y <= $num - $i; $y++){
-            echo "&nbsp ";//en este bucle le damos los primeros espacios
+            echo " &nbsp";//en este bucle le damos los primeros espacios
         }
 
         for ($x = 0; $x < $i *2 - 1 ; $x++){
             echo "*";//este es el bucle que usamos para ir añadiendo *, donde la i la multiplicamos por dos y le quitamos uno para que de la punta y vaya equitativamente
 
         }
-        for($z = 0; $z <= $num + $i;$z++){
+        for($z = 0; $z <= $num - $i;$z++){
             echo "&nbsp";
         }//este es para dar espacios por la derecha, realmente no es necesario
 
