@@ -15,17 +15,18 @@
     </style>
 </head>
 <body id="body">
-<form action="constraseñaSegura.php" method="post">
-    <p>Introduce tu contraseña: <input type="text" name="contraseña" </p>
+<form action="constrasenaSegura.php" method="post">
+    <p>Introduce tu contraseña: <input type="text" name="pass"></p>
     <p>
         <input type="submit" value="Enviardatos">
     </p>
-</form>
 <h1>¿Como de segura es mi contraseña?</h1>
 <?php
-    if(isset($_POST["contraseña"])){
+    if(isset($_POST["pass"])){
 
     }
 ?>
+</form>
+
 </body>
 </html>
