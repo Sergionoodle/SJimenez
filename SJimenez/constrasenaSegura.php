@@ -20,7 +20,6 @@
     <p>
         <input type="submit" value="Enviardatos">
     </p>
-<h1>¿Como de segura es mi contraseña?</h1>
 <?php
     if(isset($_POST["pass"])){
 
