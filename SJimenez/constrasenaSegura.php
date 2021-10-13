@@ -1,3 +1,10 @@
+<?php
+if (isset($_POST["pass"])) {
+    $psw = $_POST["pass"];
+    $color = color($psw);
+
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,26 +13,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¿Como de segura es mi contraseña?</title>
     <style>
-        body{
-            background-color: green;
-        }
-        div{
-            justify-content: center;
+        p{
+            color: <?php
+             if($fuerte = isFuerte($psw) == 4){
+                 echo "white;";
+             }
+             ?>;
         }
     </style>
 </head>
-<body id="body">
+<body style="background-color: <?php echo $color?>";>
+<center>
 <form action="constrasenaSegura.php" method="post">
-    <p>Introduce tu contraseña: <input type="text" name="pass"></p>
+    <p>Introduce tu contraseña: <br><input type="password" name="pass"></p>
     <p>
         <input type="submit" value="Enviardatos">
     </p>
-<?php
-    if(isset($_POST["pass"])){
-
-    }
-?>
 </form>
-
+</center>
 </body>
 </html>
+
+
+
+<?php
+function isFuerte($psw)
+{
+//Si la contraseña es de x strlen-->te dice la cantidad de caracteres
+    if (strlen($psw) <= 4){
+        return 1;
+    }else if(strlen($psw)<=7){
+        return 2;
+    }else if(strlen($psw) <= 12){
+        return 3;
+    }else if(strlen($psw) <= 20 ){
+        return 4;
+
+    }
+}
+
+function color($psw)
+{
+    $num = isFuerte($psw);
+
+    if ($num == 1) {
+        $color = "red";
+
+    } else if ($num == 2) {
+        $color = "orange";
+    } else if ($num == 3) {
+        $color = "green";
+    } else if ($num == 4) {
+        $color = "blue";
+    }
+    return $color;
+}
+function tipicas($psw){
+
+}
+?>
+
+
