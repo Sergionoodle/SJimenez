@@ -39,23 +39,22 @@ if (isset($_POST["pass"])) {
 <?php
 function isFuerte($psw)
 {
-//Si la contraseña es de x strlen-->te dice la cantidad de caracteres
-    if (strlen($psw) <= 4){
-        return 1;
-    }else if(strlen($psw)<=7){
-        return 2;
-    }else if(strlen($psw) <= 12){
-        return 3;
-    }else if(strlen($psw) <= 20 ){
-        return 4;
 
+//Si la contraseña es de x strlen-->te dice la cantidad de caracteres
+    if (strlen($psw) <= 4 || strval($psw) == "12345678"){
+        return 1;
+    }else if(strlen($psw)<=7 && strval($psw) != "12345678"){
+        return 2;
+    }else if(strlen($psw) <= 12&& strval($psw) != "12345678"){
+        return 3;
+    }else if(strlen($psw) <= 20&& strval($psw) != "12345678" ){
+        return 4;
     }
 }
 
 function color($psw)
 {
     $num = isFuerte($psw);
-
     if ($num == 1) {
         $color = "red";
 
@@ -68,9 +67,7 @@ function color($psw)
     }
     return $color;
 }
-function tipicas($psw){
 
-}
 ?>
 
 
