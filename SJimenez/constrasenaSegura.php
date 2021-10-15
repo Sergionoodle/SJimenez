@@ -29,6 +29,12 @@ if (isset($_POST["pass"])) {
     <p>
         <input type="submit" value="Enviardatos">
     </p>
+
+    <?php
+    if ( strval($psw) == "12345678" || strval($psw) == "1234" || strval($psw) == "password" || strval($psw) == "123456"){
+        echo "<p>Esta entre las 5 primeras contrasñas mas usadas</p>";
+    }
+    ?>
 </form>
 </center>
 </body>
@@ -41,13 +47,13 @@ function isFuerte($psw)
 {
 
 //Si la contraseña es de x strlen-->te dice la cantidad de caracteres
-    if (strlen($psw) <= 4 || strval($psw) == "12345678"){
+    if (strlen($psw) <= 4 || strval($psw) == "12345678" || strval($psw) == "1234" || strval($psw) == "password" || strval($psw) == "123456"){
         return 1;
-    }else if(strlen($psw)<=7 && strval($psw) != "12345678"){
+    }else if(strlen($psw)<=7 ){
         return 2;
-    }else if(strlen($psw) <= 12&& strval($psw) != "12345678"){
+    }else if(strlen($psw) <= 12){
         return 3;
-    }else if(strlen($psw) <= 20&& strval($psw) != "12345678" ){
+    }else if(strlen($psw) <= 20 ){
         return 4;
     }
 }

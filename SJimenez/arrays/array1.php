@@ -1,7 +1,9 @@
 <?php
 
 $array = [7, 5, 3, 9, 1, 0, 8, 6, 2];
-var_dump($array);
+
+var_dump($array);//sacar todos los elementos de la array
+
 for ($i = 0; $i < count($array); $i++) {
     for ($j = 0; $j < count($array); $j++) {
         if ($array[$i] < $array[$j]) {
@@ -11,5 +13,5 @@ for ($i = 0; $i < count($array); $i++) {
         }
     }
 }
-var_dump($array);
+var_dump($array);//sacar todos los elementos de la array
 ?>
