@@ -19,9 +19,7 @@ function getSortedElephantsByNumber($elephants){
                 $n1 = $elephants[$columna];
                 $n2 = $elephants[$columna+1];
                 $elephants[$columna]=$n2;
-                $elephants[$columna+1]=$n2;
-
-                var_dump($elephants);
+                $elephants[$columna+1]=$n1;
 
 
             }
@@ -83,11 +81,15 @@ function getSortedElephantsByNumber($elephants){
         echo "<td>".$elephants[$i]['number']."</td>";
         echo "<td>".$elephants[$i]['name']."</td>";
         echo "<td>".$elephants[$i]['species']."</td>";
-        echo "<td>".orden[$i]['number']."</td>";
+
         echo "<td>".$orden[$i]['number']."</td>";
-        echo "<td>".$orden[$i]['number']."</td>";
+        echo "<td>".$orden[$i]['name']."</td>";
+        echo "<td>".$orden[$i]['species']."</td>";
         echo "</tr>";
+
     }
+
+
     ?>
     </tbody>
 </table>
