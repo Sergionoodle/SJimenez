@@ -21,7 +21,6 @@ function getSortedElephantsByNumber($elephants){
                 $elephants[$columna]=$n2;
                 $elephants[$columna+1]=$n1;
 
-
             }
         }
     }
