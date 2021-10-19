@@ -6,18 +6,65 @@ function getSortedElephantsByNumber($elephants){
     //TODO: Return an array of elephants sorted by it's number (ascending order).
     //NOTES 1: You receive a elephants multidimensional array, you can view it's content with var_dump() function.
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
+    for ($i = 0; $i < count($elephants); $i++){
+
+        for ($j = 0; $j < count($elephants); $j++){
+
+            if($elephants[$i]['number']> $elephants[$j+1]['number'] && $elephants[$j+1]['number'] != null){
+
+                $n1 = $elephants[$j];
+                $n2 = $elephants[$j+1];
+                $elephants[$j] = $n2;
+                $elephants[$j+1] = $n1;
+            }
+        }
+    }
+    return $elephants;
+
 }
 
 function getSortedElephantsByBirth($elephants){
     //TODO: Return an array of elephants sorted by it's birth date (ascending order).
     //NOTES 1: You receive a elephants multidimensional array, you can view it's content with var_dump() function.
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
+     for ($i = 0; $i < count($elephants); $i++){
+
+        for ($j = 0; $j < count($elephants); $j++){
+
+            if($elephants[$i]['dob']> $elephants[$j+1]['dob'] && $elephants[$j+1]['dob'] != null){
+
+                $n1 = $elephants[$j];
+                $n2 = $elephants[$j+1];
+                $elephants[$j] = $n2;
+                $elephants[$j+1] = $n1;
+            }
+        }
+    }
+    return $elephants;
+
+
 }
 
 function getSortedElephantsByHavingImage($elephants){
     //TODO: Return an array of elephants sorted depending on whether they have an image (those who have an image go first).
     //NOTES 1: You receive a elephants multidimensional array, you can view it's content with var_dump() function.
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
+     for ($i = 0; $i < count($elephants); $i++){
+
+        for ($j = 0; $j < count($elephants); $j++){
+
+            if($elephants[$i]['image']> $elephants[$j+1]['image'] && $elephants[$j+1]['image'] != null){
+
+                $n1 = $elephants[$j];
+                $n2 = $elephants[$j+1];
+                $elephants[$j] = $n2;
+                $elephants[$j+1] = $n1;
+            }
+        }
+    }
+    return $elephants;
+
+
 }
 
 if(isset($_GET["sortingCriteria"])){
