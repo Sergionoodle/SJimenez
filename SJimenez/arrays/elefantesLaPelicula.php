@@ -7,68 +7,80 @@ function getSortedElephantsByNumber($elephants){
     //NOTES 1: You receive a elephants multidimensional array, you can view it's content with var_dump() function.
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
     for ($i = 0; $i < count($elephants); $i++){
+        //Los tipicos bucles de recorrer arrays
 
         for ($j = 0; $j < count($elephants); $j++){
+            // Y el segundo tipico bucle de recorrer arrays
 
-            if($elephants[$i]['number']> $elephants[$j+1]['number'] && $elephants[$j+1]['number'] != null){
+            //creamos una condicion para comparar la de elefantes i number sea menor que elefantes j number, si es el caso
+            //pasamos a lo siguiente que es ordenar y sustituir
+            if ($elephants[$i]['number'] < $elephants[$j]['number']){
 
-                $n1 = $elephants[$j];
-                $n2 = $elephants[$j+1];
-                $elephants[$j] = $n2;
-                $elephants[$j+1] = $n1;
+                //Auxiliar pasa a ser i
+                $aux = $elephants[$i];
+                //i pasa a ser j
+                $elephants[$i] = $elephants[$j];
+                //y j pasa a ser auxiliar
+                $elephants[$j] = $aux;
             }
         }
     }
+    //ahora devolvemos la array
     return $elephants;
-
 }
 
 function getSortedElephantsByBirth($elephants){
     //TODO: Return an array of elephants sorted by it's birth date (ascending order).
     //NOTES 1: You receive a elephants multidimensional array, you can view it's content with var_dump() function.
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
-     for ($i = 0; $i < count($elephants); $i++){
+    for ($i = 0; $i < count($elephants); $i++){
+        //Los tipicos bucles de recorrer arrays
 
         for ($j = 0; $j < count($elephants); $j++){
+            // Y el segundo tipico bucle de recorrer arrays
 
-            if($elephants[$i]['dob']> $elephants[$j+1]['dob'] && $elephants[$j+1]['dob'] != null){
-
-                $n1 = $elephants[$j];
-                $n2 = $elephants[$j+1];
-                $elephants[$j] = $n2;
-                $elephants[$j+1] = $n1;
+            //en este hacemos lo mismo que antes pero con date of birthday
+            if ($elephants[$i]['dob'] < $elephants[$j]['dob']){
+                $aux = $elephants[$i];
+                $elephants[$i] = $elephants[$j];
+                $elephants[$j] = $aux;
             }
         }
     }
     return $elephants;
-
-
 }
 
 function getSortedElephantsByHavingImage($elephants){
     //TODO: Return an array of elephants sorted depending on whether they have an image (those who have an image go first).
     //NOTES 1: You receive a elephants multidimensional array, you can view it's content with var_dump() function.
     //NOTES 2:You CAN'T use any sorting PHP built-in function.
-     for ($i = 0; $i < count($elephants); $i++){
+    for ($i = 0; $i < count($elephants); $i++){
+        //Los tipicos bucles de recorrer arrays
 
         for ($j = 0; $j < count($elephants); $j++){
+            // Y el segundo tipico bucle de recorrer arrays
 
-            if($elephants[$i]['image']> $elephants[$j+1]['image'] && $elephants[$j+1]['image'] != null){
-
-                $n1 = $elephants[$j];
-                $n2 = $elephants[$j+1];
-                $elephants[$j] = $n2;
-                $elephants[$j+1] = $n1;
+            //aqui comparamos que elefantes i no tenaga la imagen de no imagen, si es asi procedemos a hacer la
+            //ordenacion
+            if ($elephants[$i]['image'] != "https://elephant-api.herokuapp.com/pictures/missing.jpg"){
+                $aux = $elephants[$i];
+                $elephants[$i] = $elephants[$j];
+                $elephants[$j] = $aux;
             }
         }
     }
     return $elephants;
-
-
 }
 
 if(isset($_GET["sortingCriteria"])){
-    //TODO: Logic to call a function depending on the sorting criteria.
+
+    if($_GET["sortingCriteria"] == "number"){
+        $elephants= getSortedElephantsByNumber($elephants);
+    }elseif ($_GET["sortingCriteria"] == "image"){
+        $elephants=getSortedElephantsByHavingImage($elephants);
+    }elseif( $_GET["sortingCriteria"] == "birth"){
+        $elephants= getSortedElephantsByBirth($elephants);
+    }
 }
 
 ?>
@@ -140,7 +152,7 @@ if(isset($_GET["sortingCriteria"])){
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex" action="elefantesDos.php">
+            <form class="d-flex" action="elefantesLaPelicula.php">
                 <select class="form-control me-2 form-select" aria-label="Sorting criteria" name="sortingCriteria">
                     <option selected value="unsorted">Sorting criteria</option>
                     <option value="number">Number</option>
@@ -158,6 +170,27 @@ if(isset($_GET["sortingCriteria"])){
         <?php
         //TODO: Logic to print the elephants cards.
         //NOTES 1: You can copy the markup language from the solution deployment.
+
+        //Aqui creamos un for que recorra la array para que vaya creando uno a uno
+        for ($i = 0; $i < count($elephants);$i++) {
+            echo "<div class='col-md-4'>";
+            echo "<div class='card' style='width: 18rem;'>";
+            echo "<img class='card-img-top' src=".$elephants[$i]['image']."></img>";
+            echo "<div class='card-body' >";
+            echo "<h5 class='card-title' >".$elephants[$i]['number']."-". $elephants[$i]['name']."</h5 >";
+            echo "<br >";
+            echo "<h6 class='card-subtitle mb-2 text-muted' >". $elephants[$i]['species']."</h6>";
+            echo "<br >";
+            echo "<h6 class='card-subtitle mb-2 text-muted'>".$elephants[$i]['dob']. "</h6 >";
+            echo "<br >";
+            echo "<p class='card-text' >".$elephants[$i]['note']."</p >" ;
+            echo "<br ><a class='btn mr-2' href = ".$elephants[$i]['wikilink']." 'target = '_blank' >";
+            echo " <i class='fas fa-link' ></i > Visit elephant";
+            echo "</a >";
+            echo "</div >";
+            echo "</div >";
+            echo "</div >";
+        }
         ?>
 
     </div>
