@@ -11,7 +11,6 @@ $charactersJ = json_decode(file_get_contents($api_url . "characters"), true);
 $episodesJ = json_decode(file_get_contents($api_url . "episodes"), true);
 $locationsJ = json_decode(file_get_contents($api_url . "locations"), true);
 
-var_dump($locationsJ);
 
 function obCharacters($charactersJ)
 {
@@ -26,7 +25,7 @@ function obCharacters($charactersJ)
     return $characters;
 }
 
-function odEpisodes($episodesJ){
+function obEpisodes($episodesJ){
 
     for ($i = 0; $i < count($episodesJ); $i++){
 
@@ -43,5 +42,17 @@ function obLocations($locationsJ){
             $locationsJ[$i]['dimension'], $locationsJ[$i]['created'], $locationsJ[$i]['residents']);
     }
     return $locations;
+}
+
+$characters = obCharacters($charactersJ);
+$episodes = obEpisodes($episodesJ);
+$locations = obLocations($locationsJ);
+
+var_dump($characters);
+
+function mapping($characters, $episodes, $locations){
+
+
+
 }
 ?>
