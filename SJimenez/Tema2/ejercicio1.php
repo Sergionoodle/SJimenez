@@ -98,12 +98,11 @@ function obLocations($locationsJ){
     return $locations;
 }
 
-$characters = obCharacters($charactersJ);
-$episodes = obEpisodes($episodesJ);
-$locations = obLocations($locationsJ);
+
 
 
 function mapping($characters, $episodes, $locations){
+    $enames = Array();
 
     for ($i = 0; $i < count($characters);$i++) {
 
@@ -193,10 +192,14 @@ if (isset($_GET["sortingCriteria"])) {
     }
 }
 
+$characters = obCharacters($charactersJ);
+$episodes = obEpisodes($episodesJ);
+$locations = obLocations($locationsJ);
+
 $charmapp = mapping($characters, $locations, $episodes);
-?>
 
 ?>
+
 <html lang="es">
 <head>
     <title>RMDB</title>
