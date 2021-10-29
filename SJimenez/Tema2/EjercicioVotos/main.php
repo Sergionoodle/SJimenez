@@ -89,6 +89,9 @@ function porcentajeVotos($total){
 
 $porcentajeVotos = porcentajeVotos($total);
 
+function comparacionVotos($porcentajeVotos, $circunscrip){
+
+}
 echo totalVotos($circunscripciones);
 echo "<pre>";
 echo round(porcentajeVotos($total));
