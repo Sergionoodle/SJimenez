@@ -7,15 +7,33 @@ class provincia
 
 private $idProv;
 private $nomProv;
+private $delegados;
 
     /**
      * @param $idProv
      * @param $nomProv
      */
-    public function __construct($idProv, $nomProv)
+    public function __construct($idProv, $nomProv, $delegados)
     {
         $this->idProv = $idProv;
         $this->nomProv = $nomProv;
+        $this->delegados = $delegados;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDelegados()
+    {
+        return $this->delegados;
+    }
+
+    /**
+     * @param mixed $delegados
+     */
+    public function setDelegados($delegados)
+    {
+        $this->delegados = $delegados;
     }
 
     /**
