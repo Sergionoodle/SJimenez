@@ -83,25 +83,25 @@ function filtracion(){
     ?>
 
     <input type="submit" value="Filtra">
-    <?php
-    echo '<tbody>';
-    echo '<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>';
-    for ($i = 0; $i < count($resultadosOb);$i++){
 
-        if($resultadosOb[$i]->getDistrito() == $sortby){
-                echo '<tr>
+</form>
+<?php
+echo '<tbody>';
+echo '<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>';
+for ($i = 0; $i < count($resultadosOb);$i++){
+
+    if($resultadosOb[$i]->getDistrito() == $sortby){
+        echo '<tr>
                         <td>'.$resultadosOb[$i]->getDistrito().'</td>
                         <td>'.$resultadosOb[$i]->getPartido().'</td>
                         <td>'.$resultadosOb[$i]->getVotos().'</td>
                         <td>'."x".'</td>
                         </tr>';
 
-        }
-
     }
-    echo '</tbody>';
 
-    ?>
-</form>
+}
+echo '</tbody>';
 
+?>
 </body>
