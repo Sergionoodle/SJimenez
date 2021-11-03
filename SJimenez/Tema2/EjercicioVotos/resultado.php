@@ -1,6 +1,6 @@
 <?php
 
-class circunscrip
+class resultado
 {
 
     private $distrito;
