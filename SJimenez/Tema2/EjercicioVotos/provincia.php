@@ -5,9 +5,10 @@
 class provincia
 {
 
-private $idProv;
-private $nomProv;
-private $delegados;
+    private $idProv;
+    private $nomProv;
+    private $delegados;
+
 
     /**
      * @param $idProv
@@ -19,6 +20,8 @@ private $delegados;
         $this->nomProv = $nomProv;
         $this->delegados = $delegados;
     }
+
+
 
     /**
      * @return mixed

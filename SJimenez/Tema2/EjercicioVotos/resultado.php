@@ -6,6 +6,8 @@ class resultado
     private $distrito;
     private $partido;
     private $votos;
+    private $escanos = 0;
+    private $divisor = 1;
 
     /**
      * @param $distrito
@@ -27,6 +29,36 @@ class resultado
         return $this->distrito;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getEscanos()
+    {
+        return $this->escanos;
+    }
+
+    /**
+     * @param mixed $escanos
+     */
+    public function setEscanos($escanos)
+    {
+        $this->escanos = $escanos;
+    }
+    /**
+     * @return int
+     */
+    public function getDivisor()
+    {
+        return $this->divisor;
+    }
+
+    /**
+     * @param int $divisor
+     */
+    public function setDivisor($divisor)
+    {
+        $this->divisor = $divisor;
+    }
     /**
      * @param mixed $distrito
      */

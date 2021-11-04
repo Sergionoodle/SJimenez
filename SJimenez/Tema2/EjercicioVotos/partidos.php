@@ -85,5 +85,4 @@ class partidos
         $this->logo = $logo;
     }
 
-
 }
