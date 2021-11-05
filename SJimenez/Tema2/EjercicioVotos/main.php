@@ -27,7 +27,7 @@ function objetoProvincias($datosProvincias){
 $circuns[] = array();
 //pasamos la array de los partidos a objetos
 
-
+//creacion de objeto de la array de resultado
 function objetosResultados($datosResultados){
 
     for ($i = 0; $i < count($datosResultados); $i++){
@@ -38,6 +38,8 @@ function objetosResultados($datosResultados){
     return $resultados;
 }
 $partido[] = array();
+
+//Creacion de objeto de la array partidos
 function objetoPartidos($datosPartidos){
 
     for ($i = 0; $i < count($datosPartidos); $i++){
@@ -46,11 +48,12 @@ function objetoPartidos($datosPartidos){
     return $partido;
 }
 
+//Asignamos a cada uno una variable
 $partidosOb = objetoPartidos($datosPartidos);
 $resultadosOb = objetosResultados($datosResultados);
 $provinOb = objetoProvincias($datosProvincias);
 
-
+//filtramos partidos
 function filtroPartidos($nombrePartido){
     global  $partidosOb;
     $datosFiltro[] = Array();
@@ -64,6 +67,7 @@ function filtroPartidos($nombrePartido){
     return $datosFiltro;
 }
 
+//calculo de escaños
 function calculoEscanos($nomProvin, $delegados){
     $datosFiltro[] = Array();
     $contador = 0;
@@ -107,7 +111,6 @@ function hacerEscanos($provinOb){
 
 hacerEscanos($provinOb);
 
-
 ?>
 
 <html>
@@ -130,91 +133,117 @@ hacerEscanos($provinOb);
 <body>
 <form action="main.php" method="post">
     <?php
-    //-------------formulario de ordenaçao x provincia-----------------
 
-    echo '<select name="sorting">';
-    for ($i = 0; $i < count($provinOb); $i++){
-        echo '<option value="'.$provinOb[$i]->getNomProv().'">'.$provinOb[$i]->getNomProv().'</option>';
-    }
+    echo '<select name="porOrdenar">';
+    echo '<option value="ordenProvincias">Ordenar por Provincias</option>';
+    echo '<option value="ordenParty">Ordenar por Partidos</option>';
+    echo '<option value="generalOrder">General</option>';
     echo '</select>';
-    if (isset($_POST["sorting"])) {
-        $sortby = strval($_POST["sorting"]);
+
+    echo '<input type="submit" value="Elección">';
+
+    if(isset($_POST['porOrdenar'])){
+        $sort = strval($_POST['porOrdenar']);
     }
 
-    ?>
+    if($sort == 'ordenProvincias') {
 
-    <input type="submit" value="Filtra">
+        //-------------formulario de ordenaçao x provincia-----------------
 
-</form>
+        echo '<br>';
+        echo '<select name="sorting">';
+        for ($i = 0; $i < count($provinOb); $i++) {
+            echo '<option value="' . $provinOb[$i]->getNomProv() . '">' . $provinOb[$i]->getNomProv() . '</option>';
+        }
+        echo '</select>';
+        if (isset($_POST["sorting"])) {
+            $sortby = strval($_POST["sorting"]);
+        }
+        echo '<input type="submit" value="Filtra">';
 
-<?php
-echo '<table>';
-echo '<tbody>';
-echo '<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>';
-for ($i = 0; $i < count($resultadosOb);$i++){
+//RESULTADO DE ORDENAR X PROVINCIAS
+        echo '<table>';
+        echo '<tbody>';
+        echo '<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>';
+        for ($i = 0; $i < count($resultadosOb); $i++) {
 
-    if($resultadosOb[$i]->getDistrito() == $sortby){
-        echo '<tr>
-                        <td>'.$resultadosOb[$i]->getDistrito().'</td>
-                        <td>'.$resultadosOb[$i]->getPartido().'</td>
-                        <td>'.$resultadosOb[$i]->getVotos().'</td>
-                        <td>'.$resultadosOb[$i]->getEscanos().'</td>
+            if ($resultadosOb[$i]->getDistrito() == $sortby) {
+                echo '<tr>
+                        <td>' . $resultadosOb[$i]->getDistrito() . '</td>
+                        <td>' . $resultadosOb[$i]->getPartido() . '</td>
+                        <td>' . $resultadosOb[$i]->getVotos() . '</td>
+                        <td>' . $resultadosOb[$i]->getEscanos() . '</td>
                         </tr>';
-    }
-
-}
-echo '</tbody>';
-echo '</table>';
-
-?>
-
-<form action="main.php" method="post">
-    <?php
-
-    echo '<select name="sortPartidos">';
-    for ($i = 0; $i < count($partidosOb); $i++){
-        echo '<option value="'.$partidosOb[$i]->getNombre().'">'.$partidosOb[$i]->getNombre().'</option>';
-    }
-    echo '</select>';
-    if (isset($_POST["sortPartidos"])) {
-        $sortbyP = strval($_POST["sortPartidos"]);
-    }
-
-    ?>
-    <input type="submit" value="partidos">
-</form>
-<?php
-
-$filtroParty=filtroPartidos($sortbyP);
-echo '<table>';
-echo '<tbody>';
-echo '<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>';
-
-
-    for ($j = 0; $j < count($resultadosOb); $j++) {
-        for ($i = 0; $i < count($filtroParty); $i++) {//OHO CUIDAO
-
-            if ($filtroParty[$i]->getNombre() == $sortbyP) {
-                echo '<tr>';
-                echo '<td>' . $resultadosOb[$j]->getDistrito() . '</td>';
-                echo '<td><img src=' . $filtroParty[$i]->getLogo() . '>' . ' ' . $filtroParty[$i]->getAcronimo() . '</td>';
-                echo '<td>' .'resultadosob->getVOTOS'. '</td>';
-                echo '<td>' .'resultadosob->getEscanos' . '</td>';
-                echo '</tr>';
-
             }
 
         }
+        echo '</tbody>';
+        echo '</table>';
+    }elseif ($sort == 'ordenParty') {
+
+        echo '<br>';
+
+//FORMULARIO DE ORDENAR POR PARTIDOS
+        echo '<select name="sortPartidos">';
+        for ($i = 0; $i < count($partidosOb); $i++) {
+            echo '<option value="' . $partidosOb[$i]->getNombre() . '">' . $partidosOb[$i]->getNombre() . '</option>';
+        }
+        echo '</select>';
+        if (isset($_POST["sortPartidos"])) {
+            $sortbyP = strval($_POST["sortPartidos"]);
+        }
+        echo '    <input type="submit" value="partidos">';
+
+
+//RESULTADO ORDENAR PARTIDOS
+        $filtroParty = filtroPartidos($sortbyP);
+        echo '<table>';
+        echo '<tbody>';
+        echo '<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>';
+
+        for ($j = 0; $j < count($provinOb); $j++) {
+
+            for ($i = 0; $i < count($filtroParty); $i++) {//OHO CUIDAO
+
+                if ($filtroParty[$i]->getNombre() == $sortbyP) {
+                    echo '<tr>';
+                    echo '<td>' . $provinOb[$j]->getNomProv() . '</td>';
+                    echo '<td><img src=' . $filtroParty[$i]->getLogo() . '>' . ' ' . $filtroParty[$i]->getAcronimo() . '</td>';
+                    echo '<td>sumacion de votos';
+                    echo '</td>';
+                    echo '<td>' . 'resultadosob->getEscanos' . '</td>';
+                    echo '</tr>';
+
+                }
+
+            }
+        }
+
+
+//hacer funcion para poner solo una circunscripcion
+
+//hacer funcion para sumar todos los escaños y votos
+
+        echo '</tbody>';
+        echo '</table>';
+    }elseif($sort == 'generalOrder'){
+        echo '<br>';
+        echo '<table>';
+        echo '<tbody>';
+        echo '<tr><th>Circumscripción</th><th>Partido</th><th>Votos</th><th>Escaños</th></tr>';
+
+        for ($i = 0; $i < count($partidosOb); $i++){
+
+            echo '<tr>';
+            echo '<td>General</td>';
+            echo '<td><img src=' . $partidosOb[$i]->getLogo() . '>' . ' ' . $partidosOb[$i]->getAcronimo() . '</td>';
+            echo '<td>sumacion de votos';
+            echo '</td>';
+            echo '<td>resultadoescanos</td>';
+            echo '</tr>';
+        }
     }
-
-    //hacer funcion para poner solo una circunscripcion
-    //hacer funcion para sumar todos los escaños y votos
-
-
-echo '</tbody>';
-echo '</table>';
-
 ?>
-
+</form>
 </body>
 </html>
