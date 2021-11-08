@@ -5,6 +5,13 @@
       <webServer id="1575c779-124e-4995-a410-a12d83b3ce8f" name="sergio" url="http://localhost/SJimenez">
         <fileTransfer mountedRoot="$PROJECT_DIR$" accessType="MOUNT" port="0" />
       </webServer>
+      <webServer id="47b247e5-4c70-49e7-b3ad-46137822fbe4" name="sjimenez" url="http://ftp.dawsonferrer.com">
+        <fileTransfer host="ftp.dawsonferrer.com" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

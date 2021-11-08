@@ -155,6 +155,7 @@ mapeo();
         img{
             height: 25px;
         }
+
     </style>
 </head>
 <body>
