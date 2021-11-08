@@ -7,6 +7,10 @@ class partidos
     private $acronimo;
     private $logo;
 
+    //Para sacar el total de votos y escaños para la parte de general
+    private $totalVotos;
+    private $totalEscanos;
+
     /**
      * @param $id
      * @param $nombre
@@ -28,6 +32,39 @@ class partidos
     {
         return $this->id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalVotos()
+    {
+        return $this->totalVotos;
+    }
+
+    /**
+     * @param mixed $totalVotos
+     */
+    public function setTotalVotos($totalVotos)
+    {
+        $this->totalVotos = $totalVotos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalEscanos()
+    {
+        return $this->totalEscanos;
+    }
+
+    /**
+     * @param mixed $totalEscanos
+     */
+    public function setTotalEscanos($totalEscanos)
+    {
+        $this->totalEscanos = $totalEscanos;
+    }
+
 
     /**
      * @param mixed $id
@@ -84,5 +121,6 @@ class partidos
     {
         $this->logo = $logo;
     }
+
 
 }
