@@ -90,7 +90,6 @@ class resultado
     {
         return $this->votos;
     }
-
     /**
      * @param mixed $votos
      */

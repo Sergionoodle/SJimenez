@@ -22,7 +22,6 @@ class provincia
     }
 
 
-
     /**
      * @return mixed
      */
