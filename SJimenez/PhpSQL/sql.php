@@ -18,7 +18,7 @@ if ($con->query($sql)=== TRUE){
 }
 
 $con->close();
-
+/*
 function BInsert($from) {
     $query = "insert 50000 votos from ".$from;
 
@@ -26,5 +26,5 @@ function BInsert($from) {
     $result = $sql.mssql_select_db($query);
 
     return $result;
-}
+}*/
 ?>
