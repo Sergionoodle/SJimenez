@@ -1,4 +1,8 @@
 <?php
+
+include ("Character.php");
+
+
 $servername ="localhost";
 $username = "root";
 $password = "";
@@ -11,7 +15,8 @@ if($conn->connect_error){
     echo  "Connected successfully";
 }
 
-echo "<br>";
+
+
 /*
 $sql = "CREATE DATABASE rickymorty";
 
@@ -21,9 +26,12 @@ if($conn->query($sql) === TRUE ){
     echo "ERROR ".$conn->error;
 }
 $conn->close();
+
+
+?>
 */
 
-function datosCharacter(){
 
-}
+
+
 ?>
