@@ -58,8 +58,8 @@ if ($con->multi_query($sql)=== TRUE){
     echo "BIEN";
 }else{
     echo "BASURA";
-}*/
-/*$sql .= "DROP TABLE tablaprovincias;";
+
+$sql .= "DROP TABLE tablaprovincias;";
 
 $con->query($sql);*/
 
