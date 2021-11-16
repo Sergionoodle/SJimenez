@@ -5,6 +5,7 @@ include ("provincia.php");
 include("resultado.php");
 include ("partidos.php");
 
+/*
 $api_url= "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=districts";
 $api_url2 = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=results";
 $api_url3 = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=parties";
@@ -12,6 +13,71 @@ $api_url3 = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?
 $datosResultados = json_decode(file_get_contents($api_url2), true);
 $datosProvincias = json_decode(file_get_contents($api_url ), true);
 $datosPartidos = json_decode(file_get_contents($api_url3), true);
+*/
+
+//Creamos una nueva conecsion
+$servername = "localhost";
+$username = "root";
+$password ="";
+$dbname = "myDB";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if($conn->connect_error){
+    die("connection failed: ".$conn->connect_error);
+}
+
+/*$query = "SELECT * FROM resultados";
+$result=$conn->query($query);
+$arrayAsociativo = $result->fetch_all(MYSQLI_ASSOC);
+var_dump($arrayAsociativo);*/
+
+function selectResultados(){
+    $array = [];
+    $contador = 0;
+
+    $query = "SELECT * FROM resultados";
+    $resultado = $this->con->query($query);
+
+    while($row = $resultado->fetch_assoc()){
+        $array[$contador]=$row;
+        $contador++;
+    }
+    return $array;
+}
+
+
+function selectDistritos(){
+    $array = [];
+    $contador = 0;
+
+    $query = "SELECT * FROM tabladistritos";
+    $resultado = $this->con->query($query);
+
+    while($row = $resultado->fetch_assoc()){
+        $array[$contador]=$row;
+        $contador++;
+    }
+    return $array;
+}
+
+function selectPartid(){
+    $array = [];
+    $contador = 0;
+
+    $query = "SELECT * FROM tablapartid";
+    $resultado = $this->con->query($query);
+
+    while($row = $resultado->fetch_assoc()){
+        $array[$contador]=$row;
+        $contador++;
+    }
+    return $array;
+}
+
+$this->resultados = $this->objetoResultados($this->sql->selectResultados());
+
+$conn->close();
 
 
 $provincias[] = array();
@@ -47,7 +113,7 @@ function objetoPartidos($datosPartidos){
     return $partido;
 }
 
-//Asignamos a cada uno una variable
+////Asignamos a cada uno una variable
 $partidosOb = objetoPartidos($datosPartidos);
 $resultadosOb = objetosResultados($datosResultados);
 $provinOb = objetoProvincias($datosProvincias);

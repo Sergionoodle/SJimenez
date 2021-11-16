@@ -32,7 +32,7 @@ if ($con->multi_query($sql) === TRUE){
 }else{
     echo "ERROR";
 }*/
-
+/*
 for ($i=0;$i<count($resultados);$i++){
     $party[]=$resultados[$i]["party"];
     $party[$i]=$con->real_escape_string($party[$i]);
@@ -47,7 +47,7 @@ if ($con->multi_query($sql)=== TRUE){
 }else{
     echo "BASURA";
 }
-
+*/
 /*
 for ($i = 0; $i < count($resultados); $i++){
     $sql .= "INSERT INTO tabladistritos (idResultados, nombreDistrito, delegados) VALUES (";
@@ -63,8 +63,40 @@ $sql .= "DROP TABLE tablaprovincias;";
 
 $con->query($sql);*/
 
+$query = "SELECT * FROM partidos";
+
+$result = $con->query($query);
+
+$partidos = $result->fetch_all(MYSQLI_ASSOC);
+
+
+/*
+$query2 = "SELECT * FROM tabladistritos";
+$result2 = $this->con->query($query2);
+$datosProvincias = $result2->fetch_all(MYSQLI_ASSOC);
+
+
+$query3 = "SELECT * FROM tablapartid";
+$result3 = $this->con->query($query3);
+$datosPartidos = $result3->fetch_all(MYSQLI_ASSOC);
+*/
+
+function selectResultados(){
+    $array = [];
+    $contador = 0;
+
+    $query = "SELECT * FROM resultados";
+    $resultado = $this->con->query($query);
+
+    while($row = $resultado->fetch_assoc()){
+        $array[$contador]=$row;
+        $contador++;
+    }
+    return $array;
+}
 
 $con->close();
+
 
 
 ?>
