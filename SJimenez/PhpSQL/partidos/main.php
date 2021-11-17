@@ -5,15 +5,15 @@ include ("provincia.php");
 include("resultado.php");
 include ("partidos.php");
 
-/*
-$api_url= "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=districts";
-$api_url2 = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=results";
+
+//$api_url= "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=districts";
+//$api_url2 = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=results";
 $api_url3 = "https://dawsonferrer.com/allabres/apis_solutions/elections/api.php?data=parties";
 
-$datosResultados = json_decode(file_get_contents($api_url2), true);
-$datosProvincias = json_decode(file_get_contents($api_url ), true);
+//$datosResultados = json_decode(file_get_contents($api_url2), true);
+//$datosProvincias = json_decode(file_get_contents($api_url ), true);
 $datosPartidos = json_decode(file_get_contents($api_url3), true);
-*/
+
 
 //Creamos una nueva conecsion
 $servername = "localhost";
@@ -27,17 +27,15 @@ if($conn->connect_error){
     die("connection failed: ".$conn->connect_error);
 }
 
-/*$query = "SELECT * FROM resultados";
-$result=$conn->query($query);
-$arrayAsociativo = $result->fetch_all(MYSQLI_ASSOC);
-var_dump($arrayAsociativo);*/
+
 
 function selectResultados(){
+    global $conn;
     $array = [];
     $contador = 0;
 
     $query = "SELECT * FROM resultados";
-    $resultado = $this->con->query($query);
+    $resultado = $conn->query($query);
 
     while($row = $resultado->fetch_assoc()){
         $array[$contador]=$row;
@@ -47,12 +45,13 @@ function selectResultados(){
 }
 
 
-function selectDistritos(){
+function selectProvincias(){
+    global $conn;
     $array = [];
     $contador = 0;
 
     $query = "SELECT * FROM tabladistritos";
-    $resultado = $this->con->query($query);
+    $resultado = $conn->query($query);
 
     while($row = $resultado->fetch_assoc()){
         $array[$contador]=$row;
@@ -61,12 +60,13 @@ function selectDistritos(){
     return $array;
 }
 
-function selectPartid(){
+function selectDistritos(){
+    global $conn;
     $array = [];
     $contador = 0;
 
     $query = "SELECT * FROM tablapartid";
-    $resultado = $this->con->query($query);
+    $resultado = $conn->query($query);
 
     while($row = $resultado->fetch_assoc()){
         $array[$contador]=$row;
@@ -75,17 +75,13 @@ function selectPartid(){
     return $array;
 }
 
-$this->resultados = $this->objetoResultados($this->sql->selectResultados());
-
-$conn->close();
-
-
 $provincias[] = array();
 
 //Creamos los objetos con la array de provincias
-function objetoProvincias($datosProvincias){
-    for ($i = 0; $i < count($datosProvincias); $i++){
-        $provincias[$i] = new provincia($datosProvincias[$i]['id'], $datosProvincias[$i]['name'], $datosProvincias[$i]['delegates']);
+function objetoProvincias(){
+    $provinn = selectProvincias();
+    for ($i = 0; $i < count($provinn); $i++){
+        $provincias[$i] = new provincia($provinn[$i]['idResultados'], $provinn[$i]['nombreDistrito'], $provinn[$i]['delegados']);
     }
     return $provincias;
 }
@@ -93,10 +89,10 @@ function objetoProvincias($datosProvincias){
 $circuns[] = array();
 
 //Creamos los objetos de la array de resultados
-function objetosResultados($datosResultados){
-
-    for ($i = 0; $i < count($datosResultados); $i++){
-        $resultados[$i] = new resultado($datosResultados[$i]['district'], $datosResultados[$i]['party'], $datosResultados[$i]['votes']);
+function objetosResultados(){
+    $resultado = selectResultados();
+    for ($i = 0; $i < count($resultado); $i++){
+        $resultados[$i] = new resultado($resultado[$i]['distrito'], $resultado[$i]['partido'], $resultado[$i]['votos']);
     }
 
 
@@ -105,18 +101,19 @@ function objetosResultados($datosResultados){
 $partido[] = array();
 
 //Creamos los objetos de la array partidos
-function objetoPartidos($datosPartidos){
+function objetoPartidos(){
 
-    for ($i = 0; $i < count($datosPartidos); $i++){
-        $partido[$i] = new partidos($datosPartidos[$i]['id'], $datosPartidos[$i]['name'], $datosPartidos[$i]['acronym'], $datosPartidos[$i]['logo']);
+    $partidoides = selectDistritos();
+    for ($i = 0; $i < count($partidoides); $i++){
+        $partido[$i] = new partidos($partidoides[$i]['idPartidos'], $partidoides[$i]['nombrePartidos'], $partidoides[$i]['acronimoPartidos'], $partidoides[$i]['logo']);
     }
     return $partido;
 }
 
 ////Asignamos a cada uno una variable
-$partidosOb = objetoPartidos($datosPartidos);
-$resultadosOb = objetosResultados($datosResultados);
-$provinOb = objetoProvincias($datosProvincias);
+$partidosOb = objetoPartidos();
+$resultadosOb = objetosResultados();
+$provinOb = objetoProvincias();
 
 //filtramos por partidos
 function filtroPartidos($nombrePartido){
@@ -203,7 +200,7 @@ function mapeo(){
 }
 
 mapeo();
-
+$conn->close();
 ?>
 
 <html>
