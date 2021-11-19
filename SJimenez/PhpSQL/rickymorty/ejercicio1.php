@@ -4,6 +4,31 @@ include ("Character.php");
 include ("Episodes.php");
 include ("Locations.php");
 
+$servername = "localhost";
+$username = "root";
+$password = "";
+$basededatos = "rickymorty";
+
+$conn = new mysqli($servername, $username, $password, $basededatos);
+if($conn->connect_error){
+    echo "ERROR";
+}
+
+function selectCharacter(){
+    global $conn;
+    $array = [];
+    $contador = 0;
+
+    $query = "SELECT * FROM characters";
+    $resultado = $conn->query($query);
+
+    while($row = $resultado->fetch_assoc()){
+        $array[$contador]=$row;
+        $contador++;
+    }
+    return $array;
+}
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -11,7 +36,7 @@ error_reporting(E_ALL);
 $seed = 4312; //TODO: LAST 4 NUMBERS OF YOUR DNI.
 $api_url = "https://dawsonferrer.com/allabres/apis_solutions/rickandmorty/api.php?seed=" . $seed . "&data=";
 
-$charactersJ = json_decode(file_get_contents($api_url . "characters"), true);
+//$charactersJ = json_decode(file_get_contents($api_url . "characters"), true);
 $episodesJ = json_decode(file_get_contents($api_url . "episodes"), true);
 $locationsJ = json_decode(file_get_contents($api_url . "locations"), true);
 
@@ -66,15 +91,15 @@ function getSortedCharactersByStatus($characters)
     }
     return $characters;
 }
-function obCharacters($charactersJ)
+function obCharacters()
 {
+    $characterSql = selectCharacter();
+    for ($i = 0; $i < count($characterSql); $i++) {
 
-    for ($i = 0; $i < count($charactersJ); $i++) {
-
-        $characters[$i] = new Character($charactersJ[$i]['id'], $charactersJ[$i]['name'],
-            $charactersJ[$i]['status'], $charactersJ[$i]['species'], $charactersJ[$i]['type'],
-            $charactersJ[$i]['gender'], $charactersJ[$i]['origin'], $charactersJ[$i]['location'],
-            $charactersJ[$i]['image'], $charactersJ[$i]['created'], $charactersJ[$i]['episodes']);
+        $characters[$i] = new Character($characterSql[$i]['id'], $characterSql[$i]['name'],
+            $characterSql[$i]['status'], $characterSql[$i]['specie'], $characterSql[$i]['type'],
+            $characterSql[$i]['gender'], $characterSql[$i]['origin'], $characterSql[$i]['location'],
+            $characterSql[$i]['image'], $characterSql[$i]['created']);
     }
     return $characters;
 }
@@ -181,18 +206,18 @@ if (isset($_GET["sortingCriteria"])) {
     $sortingCriteria = $_GET["sortingCriteria"];
     switch ($sortingCriteria) {
         case "id":
-            $charactersJ = getSortedCharactersById($charactersJ);
+            $characterSql = getSortedCharactersById();
             break;
         case "origin":
-            $charactersJ = getSortedCharactersByOrigin($charactersJ);
+            $characterSql = getSortedCharactersByOrigin();
             break;
         case "status":
-            $charactersJ = getSortedCharactersByStatus($charactersJ);
+            $characterSql = getSortedCharactersByStatus();
             break;
     }
 }
 
-$characters = obCharacters($charactersJ);
+$characters = obCharacters();
 $episodes = obEpisodes($episodesJ);
 $locations = obLocations($locationsJ);
 
