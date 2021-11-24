@@ -170,7 +170,7 @@ $obDetalles = obDetalle();
         </div>
     </div>
 </nav>
-<h1>Inmoviliarias Nobita</h1>
+<h1>Inmoviliarias</h1>
 <?php
 global $obProducto;
 
