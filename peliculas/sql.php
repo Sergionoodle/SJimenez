@@ -23,25 +23,52 @@ class sql extends mysqli{
         parent::__construct($this->hostname,$this->username,$this->password,$this->database);
 
         //Por si hay algun error
-        if (mysli_connect_error()){
+        if (mysqli_connect_error()){
             die("ERROR DATABASE".mysqli_connect_error());
         }
     }
 
     //hacemos una funcion para conseguir lo que queremos de la pagina principal
-    public function getprincipal($id){
+    public function getprincipal(){
 
         //Primer bloque, hacemos la select
-        $sql = "SELECT * FROM principal WHERE id =".$id;
+        $sql = "SELECT * FROM principal ";
         $this->default();
         $query = $this->query($sql);
         $this->close();//cerramos conexion
-        $resultado = $query->fetch_assoc();//hacemos que sea una array asociativa
-        $return = new princpial($this->getUrl($resultado['idMultimedia']), $resultado['puntuacion'], $resultado['titulo'],$resultado['genero']);
+        $return = Array();
+        while($resultado = $query->fetch_assoc()) {//hacemos que sea una array asociativa
+            $return[] = new principal($resultado['id'], $this->getMultimedia($resultado['idMultimedia']), $resultado['titulo'], $resultado['genero'], $resultado['puntuacion'], $this->getStaff($resultado['idStaff']), $resultado['descripcion']);
+        }
         return $return;
 
     }
 
+    public function getMultimedia($id)
+    {
+        $sql = "SELECT * FROM multimedia WHERE id =".$id;
+        $this->default();
+        $query = $this->query($sql);
+        $this->close();//cerramos conexion
+        $resultado = $query->fetch_assoc();//hacemos que sea una array asociativa
+        $return = new multimedia($resultado['id'], $resultado['url'], $resultado['yt']);
+        return $return;
+
+    }
+
+    public function getStaff($id)
+    {
+        $sql = "SELECT * FROM staff WHERE id =".$id;
+        $this->default();
+        $query = $this->query($sql);
+        $this->close();//cerramos conexion
+        $resultado = $query->fetch_assoc();//hacemos que sea una array asociativa
+        $return = new staff($resultado['id'], $resultado['director'], $resultado['prota']);
+
+        return $return;
+    }
+
 }
+
 
 ?>
